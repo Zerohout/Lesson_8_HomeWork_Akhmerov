@@ -7,12 +7,24 @@ using System.Threading.Tasks;
 namespace HomeWork_Akhmerov
 {
     [Serializable]
-    class Questions
+    public class Questions
     {
         private string text;
         private bool isTrue;
 
-        private Questions()
+        public string Text
+        {
+            set => text = value;
+            get => text;
+        }
+
+        public bool IsTrue
+        {
+            set => isTrue = value;
+            get => isTrue;
+        }
+
+        public Questions()
         {
 
         }

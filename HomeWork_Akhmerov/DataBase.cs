@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -25,6 +26,9 @@ namespace HomeWork_Akhmerov
             list = new List<Questions>();
         }
 
+        public List<Questions> List => list;
+       
+
         public void Add(string text,bool isTrue)
         {
             list.Add(new Questions(text,isTrue));
@@ -32,9 +36,10 @@ namespace HomeWork_Akhmerov
 
         public void Remove(int index)
         {
-            if (list != null && list.Count > 0 && index < list.Count)
+            if (list != null && list.Count > 0 && index <= list.Count)
             {
-                list.RemoveAt(index);
+                list.RemoveAt(index-1);
+                
             }
             else
             {
@@ -42,8 +47,17 @@ namespace HomeWork_Akhmerov
             }
         }
 
-        public Questions this[int index] => list[index];
+        public Questions this[int index] {
+            
+            get =>list[index];
+    }
 
+        public List<Questions> GetList
+        {
+            get => list;
+            set => list = value;
+        }
+        
         public void Save()
         {
             var serializer = new XmlSerializer(typeof(List<Questions>));
@@ -52,12 +66,13 @@ namespace HomeWork_Akhmerov
             stream.Close();
         }
 
-        public void Load()
+        public List<Questions> Load()
         {
             var serializer = new XmlSerializer(typeof(List<Questions>));
             Stream stream = new FileStream(fileName,FileMode.Open,FileAccess.Read);
             list = (List<Questions>) serializer.Deserialize(stream);
             stream.Close();
+            return list;
         }
 
         public int Count => list.Count;
