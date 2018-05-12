@@ -15,19 +15,11 @@ namespace HomeWork_Akhmerov
         private string fileName;
         private List<Questions> list;
 
-        public string FileName
-        {
-            set => fileName = value;
-        }
-
         public DataBase(string fileName)
         {
             this.fileName = fileName;
             list = new List<Questions>();
         }
-
-        public List<Questions> List => list;
-       
 
         public void Add(string text,bool isTrue)
         {
@@ -47,11 +39,8 @@ namespace HomeWork_Akhmerov
             }
         }
 
-        public Questions this[int index] {
-            
-            get =>list[index];
-    }
-
+        public Questions this[int index] =>list[index];
+    
         public List<Questions> GetList
         {
             get => list;
